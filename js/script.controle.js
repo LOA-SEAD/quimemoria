@@ -8,12 +8,19 @@
 */
 
 var game = document.getElementById("game");
+//Variavel que controla o volume das musicas no jogo
+volume = 50;
+//Variavel que define se o jogo está com ou sem música
+mudo = false;
 
 function buildMenu()
 {	
 	var el = document.createElement("div");
 	el.setAttribute("id", "menu");	
 	game.appendChild(el);
+
+	//Anexando a camada de controle de som na camada do palco
+	game.appendChild(controleSom);
 	
 	var titulo = document.createElement("div");
 	titulo.setAttribute("id", "titulo");
@@ -61,6 +68,15 @@ function buildMenu()
 	botao.setAttribute("type" , "button");
 	botao.setAttribute("style", "background: url(imgs/creditos.png); width:100; height:100px; border:0;");
 	el.appendChild(botao);	
+
+	if(!document.getElementById("botaoSom")){
+		var botao = document.createElement("button");
+		botao.setAttribute("id" , "botaoSom");
+		botao.setAttribute("class" , "botao");
+		botao.setAttribute("type" , "button");
+		botao.setAttribute("style", "background: url(imgs/botaoSom.png); width:60; height:60px; border:0;");
+		controleSom.appendChild(botao);	
+	}
 	
 	var btJ6 = document.getElementById("btNovoJogo6");
 	btJ6.onmousedown=function()
@@ -95,6 +111,11 @@ function buildMenu()
 		destroyMenu();
 		buildCreditos();
 	}		
+	var botaoSom = document.getElementById("botaoSom");
+	botaoSom.onmousedown=function()
+	{
+		configurarSomBotaoSom();
+	}	
 }
 
 function destroyMenu()
@@ -109,6 +130,9 @@ function buildGame(numeroDeCartas)
 	var el = document.createElement("div");
 	el.setAttribute("id", "gamePlate");
 	game.appendChild(el);
+
+	//Anexando a camada de controle de som na camada do palco
+	game.appendChild(controleSom);
 		
 	var cards = document.createElement("div");
 	cards.setAttribute("id", "cards");
@@ -157,6 +181,9 @@ function buildSobre()
 	var el = document.createElement("div");
 	el.setAttribute("id", "sobrePlate");	
 	game.appendChild(el);
+
+	//Anexando a camada de controle de som na camada do palco
+	game.appendChild(controleSom);
 
 	var cards = document.createElement("div");
 	cards.setAttribute("id", "cards");
@@ -328,5 +355,45 @@ function destroyWin()
 	var el = document.getElementById("winPlate");
 	game.removeChild(el);
 }
+
+//Funcoes do controle de som
+function configurarSomBotaoSom() {
+    $('#botaoSom')
+        .click(function(){
+            mudo = !mudo;
+            if(mudo) {
+                $(this).css('background', 'url("../quimemoria/imgs/botaoSemSom.png")');
+                musica.pausarSom();
+            }
+            else {
+                $(this).css('background', 'url("../quimemoria/imgs/botaoSom.png")');
+                musica.iniciarSom();
+            }
+
+        });
+}
+
+function configurarSomSlider() {
+    $('#slider').slider({
+        max: 100,
+        min: 0,
+        value: 100,
+
+        create: function(event, ui) {
+            musica.iniciarSom();
+        },
+        change: function(event, ui) {
+            musica.ajustarVolumePara(ui.value/100);
+        },
+
+    });
+}
+
+//Camada onde fica o controle do audio
+var controleSom = document.createElement("div");
+controleSom.setAttribute("id", "controleDeSom");
+
+//inicializacao da musica que fica durante o jogo
+musica.iniciarSom();
 
 buildMenu();
