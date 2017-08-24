@@ -18,9 +18,6 @@ function buildMenu()
 	var el = document.createElement("div");
 	el.setAttribute("id", "menu");	
 	game.appendChild(el);
-
-	//Anexando a camada de controle de som na camada do palco
-	game.appendChild(controleSom);
 	
 	var titulo = document.createElement("div");
 	titulo.setAttribute("id", "titulo");
@@ -56,7 +53,7 @@ function buildMenu()
 	
 	var botao = document.createElement("button");
 	botao.setAttribute("id" , "btSobre");
-	botao.setAttribute("class" , "botao");
+	botao.setAttribute("class" , "botao2");
 	botao.setAttribute("type" , "button");
 	botao.setAttribute("style", "background: url(imgs/sobre.png); width:100px; height:100px; border:0;");
 	el.appendChild(botao);
@@ -64,19 +61,22 @@ function buildMenu()
 	
 	var botao = document.createElement("button");
 	botao.setAttribute("id" , "bt3");
-	botao.setAttribute("class" , "botao");
+	botao.setAttribute("class" , "botao2");
 	botao.setAttribute("type" , "button");
 	botao.setAttribute("style", "background: url(imgs/creditos.png); width:100; height:100px; border:0;");
 	el.appendChild(botao);	
 
-	if(!document.getElementById("botaoSom")){
-		var botao = document.createElement("button");
-		botao.setAttribute("id" , "botaoSom");
-		botao.setAttribute("class" , "botao");
-		botao.setAttribute("type" , "button");
-		botao.setAttribute("style", "background: url(imgs/botaoSom.png); width:60; height:60px; border:0;");
-		controleSom.appendChild(botao);	
+	var botao = document.createElement("button");
+	botao.setAttribute("id" , "botaoSom");
+	botao.setAttribute("class" , "botao2");
+	botao.setAttribute("type" , "button");
+	if(!mudo) {
+		botao.setAttribute("style", "background: url(imgs/botaoSom.png); width:100; height:100px; border:0;");
 	}
+	else {
+		botao.setAttribute("style", "background: url(imgs/botaoSemSom.png); width:100; height:100px; border:0;");
+	}
+	el.appendChild(botao);
 	
 	var btJ6 = document.getElementById("btNovoJogo6");
 	btJ6.onmousedown=function()
@@ -130,9 +130,6 @@ function buildGame(numeroDeCartas)
 	var el = document.createElement("div");
 	el.setAttribute("id", "gamePlate");
 	game.appendChild(el);
-
-	//Anexando a camada de controle de som na camada do palco
-	game.appendChild(controleSom);
 		
 	var cards = document.createElement("div");
 	cards.setAttribute("id", "cards");
@@ -158,7 +155,7 @@ function buildGame(numeroDeCartas)
 	botao.setAttribute("id" , "btVoltar");
 	botao.setAttribute("type" , "button");
 	botao.setAttribute("class" , "botao");
-	botao.setAttribute("style", "background: url(imgs/voltar.png); width:60px; height:60px; border:0;");
+	botao.setAttribute("style", "background: url(imgs/voltar.png); width:60px; height:60px; border:0; left:0%");
 	divVoltar.appendChild(botao);
 	
 	botao.onmousedown=function()
@@ -182,9 +179,6 @@ function buildSobre()
 	el.setAttribute("id", "sobrePlate");	
 	game.appendChild(el);
 
-	//Anexando a camada de controle de som na camada do palco
-	game.appendChild(controleSom);
-
 	var cards = document.createElement("div");
 	cards.setAttribute("id", "cards");
 	el.appendChild(cards);
@@ -197,7 +191,7 @@ function buildSobre()
 	botao.setAttribute("id" , "voltar");
 	botao.setAttribute("type" , "button");
 	botao.setAttribute("class" , "botao");
-	botao.setAttribute("style", "background: url(imgs/voltar.png); width:60px; height:60px; border:0;");
+	botao.setAttribute("style", "background: url(imgs/voltar.png); width:60px; height:60px; border:0; left:0%");
 	divVoltar.appendChild(botao);
 	
 	
@@ -309,7 +303,7 @@ function buildCreditos()
 	botao.setAttribute("id" , "btVoltar");
 	botao.setAttribute("type" , "button");
 	botao.setAttribute("class" , "botao");
-	botao.setAttribute("style", "background: url(imgs/voltar.png); width:60px; height:60px; border:0;");
+	botao.setAttribute("style", "background: url(imgs/voltar.png); width:60px; height:60px; border:0;  left:0%");
 	divVoltar.appendChild(botao);
 	
 	
@@ -318,7 +312,7 @@ function buildCreditos()
 	botao.setAttribute("id" , "voltarSobre");
 	botao.setAttribute("type" , "button");
 	botao.setAttribute("class" , "botao");
-	botao.setAttribute("style", "background: url(imgs/voltar.png); width:60px; height:60px; border:0;");
+	botao.setAttribute("style", "background: url(imgs/voltar.png); width:60px; height:60px; border:0;  left:0%");
 	el.appendChild(botao);	
 	*/
 	
@@ -388,10 +382,6 @@ function configurarSomSlider() {
 
     });
 }
-
-//Camada onde fica o controle do audio
-var controleSom = document.createElement("div");
-controleSom.setAttribute("id", "controleDeSom");
 
 //inicializacao da musica que fica durante o jogo
 musica.iniciarSom();
