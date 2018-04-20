@@ -356,11 +356,11 @@ function configurarSomBotaoSom() {
         .click(function(){
             mudo = !mudo;
             if(mudo) {
-                $(this).css('background', 'url("../quimemoria/imgs/botaoSemSom.png")');
+                $(this).css('background', 'url("imgs/botaoSemSom.png")');
                 musica.pausarSom();
             }
             else {
-                $(this).css('background', 'url("../quimemoria/imgs/botaoSom.png")');
+                $(this).css('background', 'url("imgs/botaoSom.png")');
                 musica.iniciarSom();
             }
 
